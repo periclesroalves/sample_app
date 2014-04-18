@@ -31,6 +31,14 @@ describe "Static pages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      it "should have sidebar micropost counter (including proper pluralization)" do
+          expect(page).to have_content("2 microposts")
+      end
+
+      it "should paginate microposts" do
+          expect(page).to have_selector("div.pagination")
+      end
     end
   end
 

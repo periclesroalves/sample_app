@@ -47,6 +47,19 @@ describe "User pages" do
         end
         it { should_not have_link('delete', href: user_path(admin)) }
       end
+
+      describe "as another user" do
+        let(:user1) { FactoryGirl.create(:user) }
+        let(:user2) { FactoryGirl.create(:user) }
+
+        before do  
+          FactoryGirl.create(:micropost, user: user1, content: "Lorem ipsum")
+          sign_in user2
+          visit user_path(user1)
+        end
+
+        it { should_not have_content('delete')}
+      end
     end
   end
 
